@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { ExpenseCard } from './components/ExpenseCard'
 
 type IExpenseType = "food" | "transport" | "fun"
 
@@ -29,9 +30,12 @@ export const App = () => {
   const handleAddExpense = () => {
     if (!title || !amount || !category) return
     
+    const parsedAmount = parseFloat(amount)
+    if (isNaN(parsedAmount) || parsedAmount <= 0) return
+    
     const newExpense: IExpense = {
       title,
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       category: category as IExpenseType
     }
     
@@ -72,13 +76,12 @@ export const App = () => {
       <div className="total">Total: ${total.toFixed(2)}</div>
       {/* Expense List */}
       {expenses.map((expense, index) => (
-        <div className="expense" key={index}>
-          <div>
-            {expense.title}
-            <div className="category">{expense.category}</div>
-          </div>
-          <div className="amount">${expense.amount.toFixed(2)}</div>
-        </div>
+        <ExpenseCard 
+          key={index}
+          title={expense.title}
+          category={expense.category}
+          amount={expense.amount}
+        />
       ))}
     </div>
   )

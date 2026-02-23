@@ -1,15 +1,6 @@
-
-interface IExpenseCardProps {
-  title: string
-  category: IExpenseType
-  amount: number
-  
-  necessary?: boolean
-}
-
-const ExpenseCard = ({ title, category, amount }: IExpenseCardProps) => {
+export const ExpenseCard = ({ title, category, amount }) => {
   return (
-    <div className={`expense${necessary ? "expense--necessary" : ""}`}>
+    <div className="expense">
       <div>
         {title}
         <div className="category">{category}</div>
